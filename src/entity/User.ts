@@ -65,7 +65,7 @@ export class User {
     }
 
     toJSON() {
-        return _.omit(this, ['password', 'errors']);
+        return _.omit(this, ['password', 'errors', 'salt']);
     }
 
 }
