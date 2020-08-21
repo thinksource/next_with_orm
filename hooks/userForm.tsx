@@ -1,7 +1,7 @@
 import {ReactChild, useCallback, useState} from 'react';
 import * as React from 'react';
 // import {AxiosResponse} from 'axios';
-// import cs from 'classnames';
+import cs from 'classnames';
 
 type Field<T> = {
   label: string,
@@ -35,7 +35,7 @@ export function userForm<T>(options: useFormOptions<T>) {
     setFormData({...formData, [key]: value});
   }, [formData]);
 
-  const _onSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     submit.request(formData).then(() => {
       submit.success();
@@ -53,7 +53,7 @@ export function userForm<T>(options: useFormOptions<T>) {
   }, [submit, formData]);
 
   const form = (
-    <form onSubmit={_onSubmit}>
+    <form onSubmit={handleSubmit}>
       {fields.map(field =>
         <div key={field.key.toString()} className={cs(`field-${field.key}`, field.className)}>
           <label className="label">

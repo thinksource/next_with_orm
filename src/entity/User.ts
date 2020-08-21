@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, BeforeInsert} 
 import crypto from 'crypto';
 import _ from 'lodash';
 import { Organization } from "./Organization";
-import { getDatabaseConnection } from "lib/db";
+import { getDatabaseConnection } from "../../lib/db";
 // export type UserState = "active" | "deactive"
 export enum UserRole {
     admin = "admin",

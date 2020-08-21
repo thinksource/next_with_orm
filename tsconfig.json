@@ -5,7 +5,7 @@
      "noImplicitAny": true,
      "baseUrl": ".",
      "target": "es5",
-     "module": "esnext",
+     "module": "commonjs",
      "strict": false,
      "esModuleInterop": true,
      "lib": [
