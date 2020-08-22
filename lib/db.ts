@@ -2,23 +2,24 @@ import {createConnection, getConnectionManager} from 'typeorm';
 import 'reflect-metadata';
 import config from '../ormconfig.json';
 
-const create = async () => {
-    console.log(process.env)
+const create = () => {
+    console.log(config);
     // @ts-ignore
     return createConnection({
-        ...config,
-        host: process.env.NODE_ENV === 'production' ? 'localhost' : config.host,
-        database: process.env.NODE_ENV === 'production' ? 'table_production' : 'table_development',
+        ...config
     });
 };
 
-const promise = (async function () {
-    const manager = getConnectionManager();
-    const current = manager.has('default') && manager.get('default');
-    if (current) {await current.close();}
-    return create();
-})();
+// const promise = (async function () {
+//     const manager = getConnectionManager();
+//     const current = manager.has('default') ? manager.get('default'):await create();
+//     // if (current) {await current.close();}
+//     return current;
+// })();
 
 export const getDatabaseConnection = async () => {
-    return promise;
+    console.log("=====================");
+    const manager = getConnectionManager();
+    const current = manager.has('default') ? manager.get('default'): (await create());
+    return current;
 };

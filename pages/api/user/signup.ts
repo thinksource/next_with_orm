@@ -11,7 +11,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
   })
 handler.post(async (req, res)=>{
     const {username, password, passwordConfirmation} = req.body;
-    const connection = await getDatabaseConnection(); // 
+    // const connection = await getDatabaseConnection(); // 
 
     const user = new User();
     user.email = username.replace(/\s/g, "");

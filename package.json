@@ -26,6 +26,7 @@
    },
    "scripts": {
       "start": "ts-node src/index.ts",
+      "dev": "next",
       "typeorm:cli": "ts-node ./node_modules/typeorm/cli.js"
    }
 }

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, BeforeInsert} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, BeforeInsert, Connection} from "typeorm";
 import crypto from 'crypto';
 import _ from 'lodash';
 import { Organization } from "./Organization";
@@ -49,6 +49,7 @@ export class User {
         if(this.password! = pw)this.errors.push('password do not match of two input');
         if(this.email.length == 0) this.errors.push('username can not empty');
         if(this.password.length == 0) this.errors.push('password can not empty');
+        // const conn : Connection= await getDatabaseConnection()
         const found = await (await getDatabaseConnection()).manager.find(
             User, {email: this.email});
         if (found.length> 0)
