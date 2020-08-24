@@ -6,7 +6,8 @@
         {
           "legacy": true
         }
-      ]
+      ],
+      "@babel/plugin-syntax-top-level-await"
     ]
   }
   

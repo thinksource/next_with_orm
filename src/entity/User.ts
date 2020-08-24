@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, BeforeInsert, 
 import crypto from 'crypto';
 import _ from 'lodash';
 import { Organization } from "./Organization";
-import { getDatabaseConnection } from "../../lib/db";
+import { getDatabaseConnection, dbManager } from "../../lib/db";
 // export type UserState = "active" | "deactive"
 export enum UserRole {
     admin = "admin",
@@ -49,8 +49,8 @@ export class User {
         if(this.password! = pw)this.errors.push('password do not match of two input');
         if(this.email.length == 0) this.errors.push('username can not empty');
         if(this.password.length == 0) this.errors.push('password can not empty');
-        // const conn : Connection= await getDatabaseConnection()
-        const found = await (await getDatabaseConnection()).manager.find(
+        const conn : Connection= await getDatabaseConnection()
+        const found = await conn.manager.find(
             User, {email: this.email});
         if (found.length> 0)
             this.errors.push('user email already exist')
