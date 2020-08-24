@@ -75,11 +75,9 @@ export async function ensureConnection(name: string = 'default'): Promise<Connec
 // })();
 
 export const getDatabaseConnection = async () => {
-    console.log("======getDatabaseConnection====");
     const manager = getConnectionManager();
     const current = manager.has('default') && manager.get('default');
     if (manager.has('default')){
-        console.log(current);
         return current;
     }else{
         console.log("doing connection");

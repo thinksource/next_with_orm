@@ -3,6 +3,7 @@ import {getDatabaseConnection} from '../../../lib/db';
 import {User} from 'src/entity/User';
 import nextConnect from 'next-connect';
 import { notDeepStrictEqual } from 'assert';
+import { user_validate } from 'lib/Validate';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>({
     onNoMatch(req, res){
@@ -11,16 +12,16 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
   })
 handler.post(async (req, res)=>{
     const {username, password, passwordConfirmation} = req.body;
-    
-    console.log("=========================")
-    let db = (await getDatabaseConnection()).manager; //
+    let db = (await getDatabaseConnection()).manager; 
 
     const user = new User();
  
     user.email = username.replace(/\s/g, "");
     user.password = password;
+    console.log(password)
+    console.log(passwordConfirmation)
 
-    if (await user.validate(passwordConfirmation)){
+    if (await user_validate(user, passwordConfirmation)){
         await db.save(user)
         res.status(200).json(user)
     }else{
