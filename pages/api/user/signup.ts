@@ -15,7 +15,10 @@ handler.post(async (req, res)=>{
     let db = (await getDatabaseConnection()).manager; 
 
     const user = new User();
- 
+    if (!username || !password || !passwordConfirmation){
+        
+        res.status(400).json({'message':"fields not completed!"})
+    }
     user.email = username.replace(/\s/g, "");
     user.password = password;
     console.log(password)
