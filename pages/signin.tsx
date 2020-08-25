@@ -1,9 +1,9 @@
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import * as React from "react";
 import axios from 'axios'
-import {withSession} from '../lib/withSession';
+// import {withSession} from '../lib/withSession';
 import {User} from '../src/entity/User';
-import {useForm} from '../hooks/userForm';
+import {userForm} from '../hooks/userForm';
 import qs from 'querystring';
 
 const SignIn: NextPage<{ user: User }> = (props) => {
@@ -16,7 +16,7 @@ const SignIn: NextPage<{ user: User }> = (props) => {
         buttons: <button type="submit">login</button>,
         submit: {
             request: formData =>
-                axios.post(`/api/v1/sessions`, formData),
+                axios.post(`/api/user/login`, formData),
             success: () => {
                 window.alert('登录成功');
                 const query = qs.parse(window.location.search.substr(1));
@@ -26,7 +26,7 @@ const SignIn: NextPage<{ user: User }> = (props) => {
     });
     return (
         <>
-            {props.user && <div>当前登录用户为 {props.user.username}</div>}
+            {props.user && <div>当前登录用户为 {props.user.email}</div>}
             <h1>登录</h1>
             {form}
         </>
@@ -35,12 +35,10 @@ const SignIn: NextPage<{ user: User }> = (props) => {
 
 export default SignIn;
 
-export const getServerSideProps: GetServerSideProps = withSession(async (context: GetServerSidePropsContext) => {
-    // @ts-ignore
-    const user = context.req.session.get('currentUser') || '';
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     return {
         props: {
             user: JSON.parse(JSON.stringify(user))
         }
     };
-});
+};
