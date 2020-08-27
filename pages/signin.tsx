@@ -35,7 +35,8 @@ const SignIn: NextPage<{ user: User }> = (props) => {
 
 export default SignIn;
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
+    // const user = ctx.req.
     return {
         props: {
             user: JSON.parse(JSON.stringify(user))
